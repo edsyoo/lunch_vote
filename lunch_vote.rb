@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'data_mapper'
 
+# Needs to be moved to external config file
 DataMapper.setup(:default, 'mysql://lunch_vote:Shoot7bo@localhost/lunch_vote')
 
 class Locations
