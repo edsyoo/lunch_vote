@@ -1,4 +1,24 @@
 require 'sinatra'
+require 'data_mapper'
+
+# Needs to be moved to external config file
+DataMapper.setup(:default, 'mysql://lunch_vote:Shoot7bo@localhost/lunch_vote')
+
+class Locations
+  include DataMapper::Resource
+
+  property :id, Serial #Primary Key
+  property :name, String, :length => 60
+  # Broken -- HOW TO DO THIS IN DM?!?
+  #property :registered, DateTime, :default => lambda{ |p,s| DateTime.now}
+end
+
+# Perform basic sanity checks and initialize all relationships
+# Call this when you've defined all your models
+DataMapper.finalize
+
+# Automatically create the table
+Locations.auto_upgrade!
 
 get '/' do
   @title = 'Welcome to the Lunch Vote!'
